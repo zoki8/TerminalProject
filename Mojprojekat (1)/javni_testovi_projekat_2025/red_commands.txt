@@ -1,0 +1,4 @@
+touch test.txt
+echo "time: " > redirect_test.txt
+time >> redirect_test.txt
+echo "done"
