@@ -10,11 +10,9 @@ public:
     virtual void execute()=0;
     virtual ~Command() {};
     virtual string readfromStdin();
-    virtual string reverseString(string text);
 
 private:
     string filename;
-    string text;
 
 };
 

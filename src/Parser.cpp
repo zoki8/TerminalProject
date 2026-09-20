@@ -5,7 +5,7 @@
 #include "EchoCommand.h"
 #include "WcCommand.h"
 #include "Command.h"
-#include "Interpreter.h"
+
 
 using namespace std;
 
@@ -19,16 +19,6 @@ Command* Parser::parseCommand(string line) {
 
     string cmd = tokens[0];
     int n = tokens.size();
-
-    if (cmd == "last") {
-        cout<<lastLine<<endl;
-        return parseCommand(lastLine);
-    }else{
-        lastLine=line;
-    }
-    if (cmd == "prompt" && tokens[1]=="-x") {
-        return ParsePrompt();
-    }
 
     if (cmd == "touch" && n==2) {
         return parseTouch(tokens[1]);
@@ -45,10 +35,6 @@ Command* Parser::parseCommand(string line) {
     if (cmd == "wc" && n>=2) {
         return parseArg(tokens,true,line);
     }
-    if (cmd == "copy" && n>=3) {
-        return parseCopy(tokens);
-    }
-
 
     return nullptr;
 }
@@ -76,15 +62,6 @@ vector<string> Parser::tokenize(string line) {
     return tokens;
 }
 
-Command* Parser::parseCopy(vector<string> tokens){
-    return new CopyCommand(tokens[1],tokens[2]);
-}
-
-Command* Parser::ParsePrompt(){
-    Interpreter::getInstance()->setSign('%',true);
-    return nullptr;
-}
-
 Command* Parser::parseTime(string cmd,vector<string> tokens) {
     if (tokens.size()==1 || tokens.size()==2) {
         if (cmd == "time"){
@@ -109,7 +86,6 @@ Command* Parser::parseTouch(string filename) {
 
 Command* Parser::parseArg(vector<string> tokens,bool opt,string line) {
     int n=tokens.size();
-    bool reversing;
 
     if (opt){
         
@@ -131,51 +107,22 @@ Command* Parser::parseArg(vector<string> tokens,bool opt,string line) {
         return new wcCommand(tokens[1],"",false,true);
     }else{
         
-        if (tokens.size()>1 && tokens[1]=="r"){
-            reversing=true;
-            if (reversing){
-                
-            }
-            int first = line.find('"');
-            if (first != string::npos) {
-                int last = line.rfind('"');
-                if (last != first){
-                    int finalLength=min(last, 512);
-                    finalLength=finalLength-(first+1);
-                    string text = line.substr(first + 1, finalLength);
-                    return new EchoCommand(text,false,false,reversing);
-            }
-            
-            return new EchoCommand("",false,false,reversing);
-            }
-            if (n==3){
-                return new EchoCommand(tokens[2],true,false,reversing);
-            }
-
-            return new EchoCommand("",false,true,reversing);
-        }else{
-            
-            reversing=false;
-            
-            int first = line.find('"');
-            if (first != string::npos) {
-                int last = line.rfind('"');
-                if (last != first){
-                    int finalLength=min(last, 512);
-                    finalLength=finalLength-(first+1);
-                    string text = line.substr(first + 1, finalLength);
-                    return new EchoCommand(text,false,false,reversing);
-            }
-            
-            return new EchoCommand("",false,false,reversing);
-            }
-            if (n==2){
-                return new EchoCommand(tokens[1],true,false,reversing);
-            }
-
-            return new EchoCommand("",false,true,reversing);
-
+        int first = line.find('"');
+        if (first != string::npos) {
+            int last = line.rfind('"');
+            if (last != first){
+                int finalLength=min(last, 512);
+                finalLength=finalLength-(first+1);
+                string text = line.substr(first + 1, finalLength);
+                return new EchoCommand(text,false,false);
         }
-    
+        
+        return new EchoCommand("",false,false);
+    }
+    if (n==2){
+            return new EchoCommand(tokens[1],true,false);
+        }
+
+    return new EchoCommand("",false,true);
     }
 }

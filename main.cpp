@@ -7,18 +7,16 @@ using namespace std;
 #include "Parser.h"
 #include "Exceptions.h"
 
+
 int main(){
     string line;
-
     Interpreter* Inter = Interpreter::getInstance();
     Reader* Read = new ConsoleReader();
     Parser* parser = new Parser();
 
     while (true) {
-            
 
             cout<<Inter->getSign()<<" ";
-            Inter->reset();
 
                 try{
                     line = Read->getLine();
@@ -34,6 +32,7 @@ int main(){
                     
                     Command* cmd = parser->parseCommand(line);       
                     if (cmd){
+
                         cmd->execute();
                         delete cmd;
                     } 
@@ -42,7 +41,6 @@ int main(){
                     cout << e->getMessage()<< '\n';
                     delete e;
                 }
-                
                 
     }	
     

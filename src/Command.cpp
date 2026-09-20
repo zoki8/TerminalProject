@@ -35,12 +35,3 @@ string Command::readfromStdin() {
     clearerr(stdin);
     return text;
 }
-
-string Command::reverseString(string text) {
-    string reversed;
-    char c;
-    for (int i=text.length()-1;i>=0;i--){
-        reversed+=text[i];
-    }
-    return reversed;
-}

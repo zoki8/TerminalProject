@@ -8,12 +8,10 @@ using namespace std;
 class Parser {
 public:
 	Command* parseCommand(string line);
-	string lastLine="";
 
 private:
 	vector<string> tokenize(string line);
-	Command* parseCopy(vector<string> tokens);
-	Command* ParsePrompt();
+
 	Command* parseTime(string cmd,vector<string> tokens);
 	Command* parseTouch(string file);
 	Command* parseArg(vector<string> tokens,bool opt,string text);

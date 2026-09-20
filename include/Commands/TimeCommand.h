@@ -7,8 +7,10 @@ using namespace std;
 
 class TimeCommand:public Command{
 public:
-    TimeCommand();
+    TimeCommand(string opt);
     virtual void execute();
+private:
+    string opt;
 };
 
 #endif

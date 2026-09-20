@@ -6,8 +6,7 @@ public:
     static Interpreter* getInstance();
 
     char getSign();
-    void setSign(char S,bool temp);
-    void reset();
+    void setSign(char S);
     
 
 
@@ -17,8 +16,6 @@ private:
     ~Interpreter();
 
     char Sign;
-    bool temp;
-    bool temporar;
 
 };
 
