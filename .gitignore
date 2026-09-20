@@ -1,8 +1,27 @@
-*.o
-*.exe
-*.out
-a.out
+# Build output
 build/
-cmi
-.vscode/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Compiled files
+*.o
+*.out
+*.exe
+/cmi
+
+# IDE files
 .idea/
+.vscode/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs / temp
+*.log
+*.tmp
