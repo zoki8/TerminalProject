@@ -1,4 +1,4 @@
-# minishell.cpp
+# minishell-cpp
 
 A small Unix-style command line interpreter written in C++17 and built around the command pattern.
 It has its own tokenizer and parser, one class per command and exception-based error reporting,
@@ -342,7 +342,7 @@ File a.txt already exists
 ## Project layout
 
 ```
-minishell.cpp/
+minishell-cpp/
 ├── CMakeLists.txt
 ├── main.cpp                     main loop and top-level exception handling
 ├── include/
